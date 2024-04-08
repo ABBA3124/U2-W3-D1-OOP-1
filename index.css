@@ -72,7 +72,7 @@ form button[type="submit"]:hover {
 #petList div {
   background-color: rgba(128, 128, 128, 0.473);
   text-align: center;
-  margin: 1% 25%;
+  margin: 1% 20%;
   padding: 1rem;
   display: flex;
   flex-wrap: nowrap;

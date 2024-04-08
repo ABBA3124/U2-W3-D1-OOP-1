@@ -61,6 +61,10 @@ console.log(pet.haveSameOwner(pet1, pet3))
 // ESERCIZIO 2 - Gestione del form
 document.addEventListener("DOMContentLoaded", function () {
   const pets = []
+  // modifica dopo le cinque colore random per ogni proprietario
+  const ownerColors = {}
+  let colorIndex = 0
+  const colors = ["red", "blue", "green", "orange"]
 
   document
     .getElementById("petForm")
@@ -76,6 +80,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const newPet = new pet(petName, ownerName, species, breed)
       pets.push(newPet) // Add istanza array pets
 
+
+      // Add colore al proprietario se non ne ha già uno
+    if (!ownerColors[ownerName]) {
+      ownerColors[ownerName] = colors[colorIndex % colors.length]
+      colorIndex++
+    }
+
       // Refresh elenco visivo Pet
       updatePetList()
     })
@@ -85,14 +96,15 @@ document.addEventListener("DOMContentLoaded", function () {
     petListDiv.innerHTML = ""
 
 
-    // Quando ci sono due proprietari ugali
-    const owners = pets.map(pet => pet.ownerName);
-    const duplicates = owners.filter((owner, index) => owners.indexOf(owner) !== index);
+    // // Quando ci sono due proprietari ugali
+    // const owners = pets.map(pet => pet.ownerName);
+    // const duplicates = owners.filter((owner, index) => owners.indexOf(owner) !== index);
 
 
     pets.forEach((pet, index) => {
       const petInfo = document.createElement("div")
-      petInfo.innerHTML = `<span class="spanning">Nome:</span> ${pet.petName}, <span class="spanning">Proprietario:</span> <span ${duplicates.includes(pet.ownerName) ? 'style="color: red;"' : ''}>${pet.ownerName}</span>, <span class="spanning">Specie:</span> ${pet.species}, <span class="spanning">Razza:</span> ${pet.breed}`
+      petInfo.innerHTML = `<span class="spanning">Nome:</span> ${pet.petName}, <span class="spanning">Proprietario:</span> <span style="color: ${ownerColors[pet.ownerName]};">${pet.ownerName}</span>, <span class="spanning">Specie:</span> ${pet.species}, <span class="spanning">Razza:</span> ${pet.breed}`
+      // petInfo.innerHTML = `<span class="spanning">Nome:</span> ${pet.petName}, <span class="spanning">Proprietario:</span> <span ${duplicates.includes(pet.ownerName) ? 'style="color: red;"' : ''}>${pet.ownerName}</span>, <span class="spanning">Specie:</span> ${pet.species}, <span class="spanning">Razza:</span> ${pet.breed}`
 
       // add-on button eleimina pet
       const deleteButton = document.createElement("button")
