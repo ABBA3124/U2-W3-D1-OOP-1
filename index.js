@@ -84,9 +84,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const petListDiv = document.getElementById("petList")
     petListDiv.innerHTML = ""
 
+
+    // Quando ci sono due proprietari ugali
+    const owners = pets.map(pet => pet.ownerName);
+    const duplicates = owners.filter((owner, index) => owners.indexOf(owner) !== index);
+
+
     pets.forEach((pet, index) => {
       const petInfo = document.createElement("div")
-      petInfo.textContent = `Nome: ${pet.petName}, Proprietario: ${pet.ownerName}, Specie: ${pet.species}, Razza: ${pet.breed}`
+      petInfo.innerHTML = `<span class="spanning">Nome:</span> ${pet.petName}, <span class="spanning">Proprietario:</span> <span ${duplicates.includes(pet.ownerName) ? 'style="color: red;"' : ''}>${pet.ownerName}</span>, <span class="spanning">Specie:</span> ${pet.species}, <span class="spanning">Razza:</span> ${pet.breed}`
 
       // add-on button eleimina pet
       const deleteButton = document.createElement("button")
